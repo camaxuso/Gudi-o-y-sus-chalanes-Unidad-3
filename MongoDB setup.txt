@@ -1,0 +1,53 @@
+Script MongoDB y commandos utiles 
+
+mongosh //selecionar el editor para manipular las base de datos
+
+show dbs // ver las bases de datos disponibles
+
+use gym_mongo //crear o cambiar esa base de datos en especifico
+
+db.createCollection("inscripciones") //crear la coleccion(tabla)
+
+show collections //ver las tablas
+
+db.inscripciones.insertMany([  //inserter datos
+  {
+    id_cliente_gym: "CLI-001",
+    id_membership: 1,
+    date_of_enrollment: ISODate("2026-11-01T10:00:00.000Z"),
+    monto_pagado: 600,
+    estado: "Activa",
+    metodo_pago: "Tarjeta"
+  },
+  {
+    id_cliente_gym: "CLI-002",
+    id_membership: 2,
+    date_of_enrollment: ISODate("2026-11-05T16:30:00.000Z"),
+    monto_pagado: 4500,
+    estado: "Activa",
+    metodo_pago: "Efectivo"
+  }
+])
+
+
+db.inscripciones.find().pretty() //ver los datos en la table
+
+db.inscripciones.insertOne({  //inserter una entrada
+  id_cliente_gym: "CLI-003",
+  id_membership: 3,
+  date_of_enrollment: new Date(),
+  monto_pagado: 200,
+  estado: "Activa",
+  metodo_pago: "Tarjeta"
+})
+
+db.inscripciones.updateOne( //actualizer o editar alguna entrada
+  { id_cliente_gym: "CLI-001" },
+  { $set: { estado: "Vencida" } }
+)
+
+db.inscripciones.deleteOne({ id_cliente_gym: "CLI-003" }) //borrar una entrada
+
+db.inscripciones.drop() //borrar una tabla
+
+db.dropDatabase() //borrar la BD
